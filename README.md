@@ -11,9 +11,9 @@ This repository contains the puppet infrastructure code to set up a Nginx server
 ### Functionality
 This puppet code takes the community mantained module voxpupuli/puppet-nginx to perform the following:
 
-1 - Creates a proxy to redirect requests for https://domain.com to 10.10.10.10 and redirect requests for https://domain.com/resoure2 to 20.20.20.20. These are created as Nginx server blocks that forward requests to an upstream backend, therefore allowing for extra members for load-balancing and passive health checks.
-2 - Creates a forward proxy to log HTTP requests going from the internal network to the Internet including: request protocol, remote IP and time take to serve the request. To this effect, all HTTP requests pointing to `forward.domain.com:8888` as proxy server will be forwarded to the external network and logged accordingly.
-3 - Implements proxy passive health checks on all defined upstream backend members. Timeout and retries may be configured with the parameters `upstream_fail_timeout` and `upstream_max_fails`.
+1. Creates a proxy to redirect requests for https://domain.com to 10.10.10.10 and redirect requests for https://domain.com/resoure2 to 20.20.20.20. These are created as Nginx server blocks that forward requests to an upstream backend, therefore allowing for extra members for load-balancing and passive health checks.
+2. Creates a forward proxy to log HTTP requests going from the internal network to the Internet including: request protocol, remote IP and time take to serve the request. To this effect, all HTTP requests pointing to `forward.domain.com:8888` as proxy server will be forwarded to the external network and logged accordingly.
+3. Implements proxy passive health checks on all defined upstream backend members. Timeout and retries may be configured with the parameters `upstream_fail_timeout` and `upstream_max_fails`.
 
-#### Notes
+### Customization
 * All configuration is done via hiera, please refer to the role yaml file `domain_proxy.yaml` to set up custom values,  or `proxy.domain.com.yaml` for host-specific configuration.
