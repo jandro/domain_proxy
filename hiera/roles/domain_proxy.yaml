@@ -1,0 +1,41 @@
+---
+nginx::nginx_upstreams:
+  'web':
+    ensure: present
+    members:
+      - '10.10.10.10'
+    upstream_fail_timeout: '5s'
+    upstream_max_fails: '3'
+  'app':
+    ensure: present
+    members:
+      - '20.20.20.20'
+    upstream_fail_timeout: '5s'
+    upstream_max_fails: '3'
+nginx::nginx_servers:
+  'domain.com':
+    server_name:
+      - 'domain.com'
+    proxy: 'http://web'
+    ssl: true
+    ssl_cert: '/etc/ssl/certs/domain.com/cert.crt'
+    ssl_key: '/etc/ssl/certs/domain.com/privkey.key'
+    listen_port: '443'
+    ssl_port: '443'
+    locations:
+      'resource2':
+        location: '~ ^/resource2(.*)$'
+        proxy: 'http://app/$1'
+        ssl_only: true
+  'forward.domain.com':
+    server_name:
+      - 'forward.domain.com'
+    listen_port: 8888
+    resolver:
+      - '8.8.8.8'
+      - '8.8.4.4'
+    proxy: 'http://$http_host$uri$is_args$args'
+    format_log: 'mycombined'
+    
+nginx::log_format:
+  'mycombined': '$remote_addr - [$time_local] "$request" - $request_time - $status "$http_referer" "$http_user_agent" $scheme'
