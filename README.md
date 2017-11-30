@@ -6,7 +6,7 @@ This repository contains the puppet infrastructure code to set up a Nginx server
 * Install ruby (>= 2.2) on your system.
 * You will also need Puppet >= 3.8, Facter >= 1.6, Hiera and librarian-puppet. They all can be installed with your platform's package manager (if using OSX, packages are available via `brew`)
 * Puppet Nginx module is installed using Puppetfile's module definitions. To this effect, run `librarian-puppet install` install to pull the module and its dependencies from the respository. This command will create and populate the subdir `modules-contrib`.
-* For puppet to be able to fetch the proxy's role definition, you need to set the parameter `domain_role` to `domain_proxy`.
+* For puppet to be able to fetch the proxy's role definition, you need to set the parameter `domain_role` to `domain_proxy` on your Vagrantfile or Foreman for instance.
 
 ### Functionality
 This puppet code takes the community mantained module voxpupuli/puppet-nginx to perform the following:
